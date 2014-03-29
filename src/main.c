@@ -54,39 +54,11 @@ int main(void) {
 	init_timer();
   init_io();
 
+  sei();
 
-  PORTA |= (1<<PA0);
-  PORTA |= (1<<PA1);
-  PORTA |= (1<<PA2);
-  PORTA |= (1<<PA3);
-
-  PORTA |= (1<<PA4);
-  PORTA |= (1<<PA5);
-  PORTA |= (1<<PA6);
-  PORTA |= (1<<PA7);
-
-  PORTC |= (1<<PC0);
-  PORTC |= (1<<PC1);
-  PORTC |= (1<<PC2);
-  PORTC |= (1<<PC3);
-
-  PORTC |= (1<<PC4);
-  PORTC |= (1<<PC5);
-  PORTC |= (1<<PC6);
-  PORTC |= (1<<PC7);
-
-  PORTB |= (1<<PB0);
-  PORTB |= (1<<PB1);
-  PORTB |= (1<<PB2);
-  PORTB |= (1<<PB3);
+  fill_cube(0x0F);
 
   _delay_us(1000000u);
-
-  PORTB = 0x00;
-  PORTA = 0x00;
-  PORTC = 0x00;
-
-  sei();
 
   while (1) {
     for (i=0; i<4; i++) {
