@@ -1,8 +1,9 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#include <stdlib.h>
-#include <string.h>
+
+#include "helpers.h"
+#include "effects.h"
 
 volatile unsigned char tab[4][4];
 
@@ -38,17 +39,21 @@ static inline void init_timer() {
 	TIMSK |= (1<<OCIE0);
 }
 
-int main(void) {
-
-  int i, j, k;
-
-	init_timer();
-
+static inline void init_io() {
   DDRA = 0xFF;
   DDRB = 0xFF;
   DDRC = 0xFF;
   DDRD = 0xFF;
   PORTD |= (1<<PD7);
+}
+
+int main(void) {
+
+  int i, j, k;
+
+	init_timer();
+  init_io();
+
 
   PORTA |= (1<<PA0);
   PORTA |= (1<<PA1);

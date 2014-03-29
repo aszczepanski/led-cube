@@ -7,8 +7,7 @@ OBJ_CPY = avr-objcopy
 IHEX = ihex
 EEPROM = .eeprom
 
-SRCS = main.c
-#SRCS = debug.c HD44780
+SRCS = main.c helpers.c effects.c
 OBJS=$(addprefix ./obj/, $(addsuffix .o, $(SRCS)))
 
 LFUSE = 0xe4
@@ -35,7 +34,7 @@ $(HEX): $(TARGET)
 $(TARGET): $(OBJS)
 	$(LD) -o $(TARGET) $(OBJS) $(LDFLAGS) -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 ./obj/%.c.o: ./src/%.c
-	-mkdir obj
+	-mkdir -p obj
 	$(CC) -c $< -o $@ $(CFLAGS) -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 
 fusew:
