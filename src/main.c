@@ -2,6 +2,8 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 
+#include <stdlib.h>
+
 #include "helpers.h"
 #include "effects.h"
 
@@ -49,8 +51,6 @@ static inline void init_io() {
 
 int main(void) {
 
-  int i, j, k;
-
 	init_timer();
   init_io();
 
@@ -58,46 +58,18 @@ int main(void) {
 
   fill_cube(0x0F);
 
-  _delay_us(1000000u);
+  _delay_us(1000000);
 
   while (1) {
-    for (i=0; i<4; i++) {
-      for (k=0; k<4; k++) {
-        for (j=0; j<4; j++) {
-          tab[k][j] = 0x00;
-        }
-      }
-      for (j=0; j<4; j++) {
-        tab[i][j] = 0x0F;
-      }
-      _delay_us(250000u);
-    }
-   
-    for (i=0; i<4; i++) {
-      for (k=0; k<4; k++) {
-        for (j=0; j<4; j++) {
-          tab[k][j] = 0x00;
-        }
-      }
-      for (j=0; j<4; j++) {
-        tab[j][i] = 0x0F;
-      }
-      _delay_us(250000u);
-    }
 
-    for (i=0; i<4; i++) {
-      for (k=0; k<4; k++) {
-        for (j=0; j<4; j++) {
-          tab[k][j] = 0x00;
-        }
-      }
-      for (j=0; j<4; j++) {
-        for (k=0; k<4; k++) {
-          tab[j][k] = 1<<i;
-        }
-      }
-      _delay_us(250000u);
-    }
+    turn_on_and_off_each_layer(BOTTOM_TOP);
+    turn_on_and_off_each_layer(LEFT_RIGHT);
+    turn_on_and_off_each_layer(FRONT_BACK);
+    turn_on_and_off_each_layer(TOP_BOTTOM);
+    turn_on_and_off_each_layer(RIGHT_LEFT);
+    turn_on_and_off_each_layer(BACK_FRONT);
+
+    random_diodes();
 
   }
 
