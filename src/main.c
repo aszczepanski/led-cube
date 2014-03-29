@@ -35,13 +35,13 @@ ISR(TIMER0_COMP_vect) {
   }
 }
 
-static inline void init_timer() {
+static inline void init_timer(void) {
 	TCCR0=(1<<WGM01)|(1<<CS01)|(1<CS00);
 	OCR0 = 156;
 	TIMSK |= (1<<OCIE0);
 }
 
-static inline void init_io() {
+static inline void init_io(void) {
   DDRA = 0xFF;
   DDRB = 0xFF;
   DDRC = 0xFF;
