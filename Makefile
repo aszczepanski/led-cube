@@ -35,6 +35,7 @@ $(HEX): $(TARGET)
 $(TARGET): $(OBJS)
 	$(LD) -o $(TARGET) $(OBJS) $(LDFLAGS) -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 ./obj/%.c.o: ./src/%.c
+	-mkdir obj
 	$(CC) -c $< -o $@ $(CFLAGS) -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 
 fusew:
@@ -45,4 +46,4 @@ fuser:
 .PHONY: clean
 
 clean:
-	-rm -rf $(TARGET) $(HEX) ./obj/*
+	-rm -rf $(TARGET) $(HEX) obj/
