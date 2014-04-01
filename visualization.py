@@ -1,7 +1,10 @@
+#!/usr/bin/env python -u
+
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+import sys
 
 size = 4
 count = size ** 3
@@ -13,12 +16,16 @@ x = [ point[0] for point in points ]
 y = [ point[1] for point in points ]
 z = [ point[2] for point in points ]
 
-leds = [ 1 if np.random.rand() > 0.5 else 0 for i in np.arange(0, count) ]
-
-col = [ [0.0, 0.0, 1.0, i] for i in leds ]
-
 fig = plt.figure()
 ax3D = fig.add_subplot(111, projection='3d')
-p3d = ax3D.scatter(x, y, z, s=count, c=col, marker='o')
 
+plt.ion()
 plt.show()
+
+for line in sys.stdin:
+  print("Received line: " + line.strip())
+  leds = [ int(i) for i in line.strip() ]
+  col = [ [0.0, 0.0, 1.0, i] for i in leds ]
+  ax3D.clear()
+  p3d = ax3D.scatter(x, y, z, s=count, c=col, marker='o')
+  plt.draw()
