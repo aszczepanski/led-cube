@@ -27,5 +27,5 @@ for line in sys.stdin:
   leds = [ int(i) for i in line.strip() ]
   col = [ [0.0, 0.0, 1.0, i] for i in leds ]
   ax3D.clear()
-  p3d = ax3D.scatter(x, y, z, s=count, c=col, marker='o')
+  p3d = ax3D.scatter(z, y, x, s=count, c=col, marker='o')
   plt.draw()
