@@ -16,6 +16,7 @@ def print_cube(cube):
 
 while True:
   if frames < 3 * cube.size:
+    cube.clear()
     cube.layer(frames % cube.size, frames / cube.size)
   else:
     cube.randomness()

@@ -25,7 +25,10 @@ class LEDCube:
       ary = [ i / self.size % self.size == number for i in self.point_numbers ]
     elif direction == 2:
       ary = [ i % self.size == number for i in self.point_numbers ]
-    self.points = ary
+    self.light_up(ary)
+
+  def light_up(self, points):
+    self.points = np.array([ i[0] or i[1] for i in zip(self.points, points) ])
 
   def to_string(self):
     return string.join([ '1' if i else '0' for i in self.points ], '')
