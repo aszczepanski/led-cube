@@ -1,6 +1,8 @@
 import numpy as np
 import string
 
+import serial
+
 class LEDCube:
   def __init__(self, size):
     self.size = size
@@ -8,6 +10,21 @@ class LEDCube:
     self.points = np.arange(0, self.count)
     self.point_numbers = np.arange(0, self.count)
     self.clear()
+
+    self.__serial = serial.Serial('/dev/ttyUSB0', 250000, timeout=1)
+
+  def flush(self):
+    self.__serial.write(chr(int('AB', 16)))
+    for y in range(0,self.size):
+      for z in range(0,self.size):
+        byte = ''
+        for x in range(0,self.size):
+          if (self.points[self.__point_to_number((x,y,z))]):
+            byte = '1' + byte
+          else:
+            byte = '0' + byte
+        self.__serial.write(chr(int(byte, 2)))
+        print byte
 
   def randomness(self):
     self.points = [ np.random.rand() > 0.5 for i in self.points ]
@@ -40,4 +57,4 @@ class LEDCube:
     self.points = np.array([ i[0] or i[1] for i in zip(self.points, points) ])
 
   def __point_to_number(self, point):
-    return point[0] * (self.size ** 2) + point[1] * self.size + point[2]
+    return point[2] * (self.size ** 2) + point[1] * self.size + point[0]
