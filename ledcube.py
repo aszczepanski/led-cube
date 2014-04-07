@@ -1,4 +1,5 @@
 import numpy as np
+import string
 
 class LEDCube:
   def __init__(self, size):
@@ -25,3 +26,6 @@ class LEDCube:
     elif direction == 2:
       ary = [ i % self.size == number for i in self.point_numbers ]
     self.points = ary
+
+  def to_string(self):
+    return string.join([ '1' if i else '0' for i in self.points ], '')
