@@ -3,5 +3,5 @@
 ## running effects simulation
 
 ```
-./smoke.py | ./visualization.py
+./run.py | ./visualization.py
 ```
