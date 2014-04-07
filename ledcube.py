@@ -18,6 +18,12 @@ class LEDCube:
   def fill(self):
     self.points.fill(True)
 
+  def on(self, point):
+    self.points[self.__point_to_number(point)] = True
+
+  def off(self, point):
+    self.points[self.__point_to_number(point)] = False
+
   def layer(self, number, direction):
     if direction == 0:
       ary = [ i / self.size ** 2 == number for i in self.point_numbers ]
@@ -25,10 +31,13 @@ class LEDCube:
       ary = [ i / self.size % self.size == number for i in self.point_numbers ]
     elif direction == 2:
       ary = [ i % self.size == number for i in self.point_numbers ]
-    self.light_up(ary)
-
-  def light_up(self, points):
-    self.points = np.array([ i[0] or i[1] for i in zip(self.points, points) ])
+    self.__light_up(ary)
 
   def to_string(self):
     return string.join([ '1' if i else '0' for i in self.points ], '')
+
+  def __light_up(self, points):
+    self.points = np.array([ i[0] or i[1] for i in zip(self.points, points) ])
+
+  def __point_to_number(self, point):
+    return point[0] * (self.size ** 2) + point[1] * self.size + point[2]
