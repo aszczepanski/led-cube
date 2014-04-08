@@ -1,5 +1,6 @@
 import numpy as np
 import string
+import time
 
 import serial
 
@@ -25,7 +26,7 @@ class LEDCube:
           if (self.points[self.__point_to_number((x,y,z))]):
             row |= (1<<x)
         self.__serial.write(chr(row))
-        print bin(row).zfill(self.size)
+        # print bin(row).zfill(self.size)
 
   def randomness(self):
     self.points = [ np.random.rand() > 0.5 for i in self.points ]
@@ -59,3 +60,36 @@ class LEDCube:
 
   def __point_to_number(self, point):
     return point[1] * (self.size ** 2) + point[2] * self.size + point[0]
+
+if __name__ == "__main__":
+  """Performs simple cube test"""
+  cube = LEDCube(4)
+
+  cube.flush()
+  time.sleep(1)
+
+  cube.fill()
+  cube.flush()
+  time.sleep(1)
+
+  for x in range(0,4):
+    cube.clear()
+    for y in range(0,4):
+      for z in range(0,4):
+        cube.on((x,y,z))
+    cube.flush()
+    time.sleep(0.25)
+
+  cube.fill()
+  cube.flush()
+  time.sleep(1)
+
+  cube.off((1,1,1))
+  cube.off((1,2,3))
+  cube.flush()
+  time.sleep(1)
+
+  cube.on((1,1,1))
+  cube.on((1,2,3))
+  cube.flush()
+
