@@ -23,4 +23,4 @@ while True:
   effect.next()
   print(cube.to_string())
   cube.flush()
-  time.sleep(0.05)
+  time.sleep(0.1)
