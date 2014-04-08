@@ -3,6 +3,9 @@ import string
 
 import serial
 
+def bin(s):
+  return str(s) if s<=1 else bin(s>>1) + str(s&1)
+
 class LEDCube:
   def __init__(self, size):
     self.size = size
@@ -17,14 +20,12 @@ class LEDCube:
     self.__serial.write(chr(int('AB', 16)))
     for y in range(0,self.size):
       for z in range(0,self.size):
-        byte = ''
+        row = 0
         for x in range(0,self.size):
           if (self.points[self.__point_to_number((x,y,z))]):
-            byte = '1' + byte
-          else:
-            byte = '0' + byte
-        self.__serial.write(chr(int(byte, 2)))
-        print byte
+            row |= (1<<x)
+        self.__serial.write(chr(row))
+        print bin(row).zfill(self.size)
 
   def randomness(self):
     self.points = [ np.random.rand() > 0.5 for i in self.points ]
@@ -57,4 +58,4 @@ class LEDCube:
     self.points = np.array([ i[0] or i[1] for i in zip(self.points, points) ])
 
   def __point_to_number(self, point):
-    return point[2] * (self.size ** 2) + point[1] * self.size + point[0]
+    return point[1] * (self.size ** 2) + point[2] * self.size + point[0]
