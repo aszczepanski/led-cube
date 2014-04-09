@@ -6,25 +6,35 @@ from snake import SnakeEffect
 
 import time, sys
 import numpy as np
+import argparse
 
 import communication
 import visualization
 
-if len(sys.argv) > 1:
-  effect_name = sys.argv[1]
-else:
-  effect_name = "smoke"
+parser = argparse.ArgumentParser()
+parser.add_argument('--effect', required=True, metavar='EFFECT', help='execute given effect - one of the following: \'snake\' or \'smoke\'')
+parser.add_argument('--output', nargs='+', metavar='OUT', help='add given output method - one or more of the following: \'serial\', \'matplotlib\' or \'opengl\'')
+args = parser.parse_args()
+
+print vars(args)
 
 cube = LEDCube(4)
-#cube.addSubscriber(communication.UART())
-cube.addSubscriber(visualization.MatplotlibVisualizator())
-#cube.addSubscriber(visualization.OpenGLVisualizator())
 
-if effect_name == "snake":
+if args.effect == "snake":
   effect = SnakeEffect(cube)
-else:
+elif args.effect == "smoke":
   effect = SmokeEffect(cube)
+else:
+  raise ValueError
 
+if args.output:
+  if 'serial' in args.output:
+    cube.addSubscriber(communication.UART())
+  if 'matplotlib' in args.output:
+    cube.addSubscriber(visualization.MatplotlibVisualizator())
+  if 'opengl' in args.output:
+    cube.addSubscriber(visualization.OpenGLVisualizator())
+  
 while True:
   effect.next()
   print(cube.to_string())
