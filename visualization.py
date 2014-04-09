@@ -6,26 +6,32 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import sys
 
-size = 4
-count = size ** 3
+from pubsub import Subscriber
 
-points = np.arange(0, count)
-points = [ [point / size ** 2, point / size % size, point % size] for point in points ]
+class MatplotlibVisualizator(Subscriber):
+  def __init__(self):
+    size = 4
+    self.count = size ** 3
 
-x = [ point[0] for point in points ]
-y = [ point[1] for point in points ]
-z = [ point[2] for point in points ]
+    points = np.arange(0, self.count)
+    points = [ [point / size ** 2, point / size % size, point % size] for point in points ]
 
-fig = plt.figure()
-ax3D = fig.add_subplot(111, projection='3d')
+    self.x = [ point[0] for point in points ]
+    self.y = [ point[1] for point in points ]
+    self.z = [ point[2] for point in points ]
 
-plt.ion()
-plt.show()
+    self.fig = plt.figure()
+    self.ax3D = self.fig.add_subplot(111, projection='3d')
 
-for line in sys.stdin:
-  print("Received line: " + line.strip())
-  leds = [ int(i) for i in line.strip() ]
-  col = [ [0.0, 0.0, 1.0, i] for i in leds ]
-  ax3D.clear()
-  p3d = ax3D.scatter(z, y, x, s=count, c=col, marker='o')
-  plt.draw()
+    plt.ion()
+    plt.show()
+
+  def update(self, cube):
+    line = cube.to_string()
+    print("Received line: " + line.strip())
+    leds = [ int(i) for i in line.strip() ]
+    col = [ [0.0, 0.0, 1.0, i] for i in leds ]
+    self.ax3D.clear()
+    p3d = self.ax3D.scatter(self.z, self.y, self.x, s=self.count, c=col, marker='o')
+    plt.draw()
+

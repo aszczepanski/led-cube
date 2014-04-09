@@ -8,6 +8,7 @@ import time, sys
 import numpy as np
 
 import communication
+import visualization
 
 if len(sys.argv) > 1:
   effect_name = sys.argv[1]
@@ -15,7 +16,8 @@ else:
   effect_name = "smoke"
 
 cube = LEDCube(4)
-cube.addSubscriber(communication.UART())
+#cube.addSubscriber(communication.UART())
+cube.addSubscriber(visualization.MatplotlibVisualizator())
 
 if effect_name == "snake":
   effect = SnakeEffect(cube)
