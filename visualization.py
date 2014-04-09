@@ -6,6 +6,10 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import sys
 
+from OpenGL.GLUT import *
+from OpenGL.GLU import *
+from OpenGL.GL import *
+
 from pubsub import Subscriber
 
 class MatplotlibVisualizator(Subscriber):
@@ -34,4 +38,57 @@ class MatplotlibVisualizator(Subscriber):
     self.ax3D.clear()
     p3d = self.ax3D.scatter(self.z, self.y, self.x, s=self.count, c=col, marker='o')
     plt.draw()
+
+class OpenGLVisualizator(Subscriber):
+  def __init__(self):
+    self.name = 'LED cube'
+
+    glutInit(sys.argv)
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
+    glutInitWindowSize(600,600)
+    glutCreateWindow(self.name)
+
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable( GL_BLEND );
+
+    glClearColor(0.,0.,0.,1.)
+    #glShadeModel(GL_SMOOTH)
+    #glEnable(GL_CULL_FACE)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_LIGHTING)
+    #lightZeroPosition = [10.,4.,10.,1.]
+    #lightZeroColor = [0.8,1.0,0.8,1.0] #green tinged
+    #glLightfv(GL_LIGHT0, GL_POSITION, lightZeroPosition)
+    #glLightfv(GL_LIGHT0, GL_DIFFUSE, lightZeroColor)
+    #glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 0.1)
+    #glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.05)
+    glEnable(GL_LIGHT0)
+    #glutDisplayFunc(self.display)
+    glMatrixMode(GL_PROJECTION)
+    gluPerspective(70.,1.,1.,70.)
+    glMatrixMode(GL_MODELVIEW)
+    gluLookAt(15,11,-13,
+      0,0,0,
+      0,1,0)
+    glPushMatrix()
+    #glutMainLoop()
+
+  def update(self, cube):
+    self.display(cube)
+
+  def display(self,cube):
+    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+    for x in range(4):
+      for y in range(4):
+        for z in range(4):
+          glPushMatrix()
+          if (cube.at((x,y,z))):
+            color = [0.0, 1.0, 0.0, 0.9]
+          else:
+            color = [0.0, 0.4, 0.0, 0.45]
+          glMaterialfv(GL_FRONT,GL_DIFFUSE,color)
+          glTranslate(-4.5+3*x,-4.5+3*y,-4.5+3*z)
+          glutSolidSphere(0.5,20,20)
+          glPopMatrix()
+    glutSwapBuffers()
 

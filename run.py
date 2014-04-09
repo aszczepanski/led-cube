@@ -18,6 +18,7 @@ else:
 cube = LEDCube(4)
 #cube.addSubscriber(communication.UART())
 cube.addSubscriber(visualization.MatplotlibVisualizator())
+#cube.addSubscriber(visualization.OpenGLVisualizator())
 
 if effect_name == "snake":
   effect = SnakeEffect(cube)
