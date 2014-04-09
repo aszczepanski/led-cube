@@ -65,9 +65,9 @@ class OpenGLVisualizator(Subscriber):
     glEnable(GL_LIGHT0)
     #glutDisplayFunc(self.display)
     glMatrixMode(GL_PROJECTION)
-    gluPerspective(70.,1.,1.,70.)
+    gluPerspective(65.,1.,1.,65.)
     glMatrixMode(GL_MODELVIEW)
-    gluLookAt(15,11,-13,
+    gluLookAt(11,12,15,
       0,0,0,
       0,1,0)
     glPushMatrix()
@@ -87,7 +87,7 @@ class OpenGLVisualizator(Subscriber):
           else:
             color = [0.0, 0.4, 0.0, 0.45]
           glMaterialfv(GL_FRONT,GL_DIFFUSE,color)
-          glTranslate(-4.5+3*x,-4.5+3*y,-4.5+3*z)
+          glTranslate(-4.5+3*x,-4.5+3*y,4.5-3*z)
           glutSolidSphere(0.5,20,20)
           glPopMatrix()
     glutSwapBuffers()
