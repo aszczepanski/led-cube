@@ -7,7 +7,7 @@ OBJ_CPY = avr-objcopy
 IHEX = ihex
 EEPROM = .eeprom
 
-SRCS = main.c helpers.c effects.c
+SRCS = main.c helpers.c effects.c usart.c
 OBJS=$(addprefix ./obj/, $(addsuffix .o, $(SRCS)))
 
 LFUSE = 0xe4
