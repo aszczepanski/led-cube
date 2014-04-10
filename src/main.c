@@ -2,13 +2,15 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 
+#include <stdint.h>
+
 #include "usart.h"
 #include "helpers.h"
 #include "effects.h"
 
-volatile unsigned char tab[4][4];
+volatile uint8_t tab[4][4];
 
-volatile unsigned char current_layer = 0;
+volatile uint8_t current_layer = 0;
 
 ISR(TIMER0_COMP_vect) {
 
@@ -61,7 +63,7 @@ int main(void) {
 
   _delay_us(1000000);
 
-  unsigned char counter;
+  uint8_t counter;
 
   while (1) {
 
