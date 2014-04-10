@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 void USART_Init(void);
+
 void USART_Transmit(uint8_t data);
 uint8_t USART_Receive(void);
 
