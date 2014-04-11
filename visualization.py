@@ -82,13 +82,39 @@ class OpenGLVisualizator(Subscriber):
       for y in range(4):
         for z in range(4):
           glPushMatrix()
-          if (cube.at((x,y,z))):
-            color = [0.0, 1.0, 0.0, 0.9]
-          else:
-            color = [0.0, 0.4, 0.0, 0.45]
-          glMaterialfv(GL_FRONT,GL_DIFFUSE,color)
+
           glTranslate(-4.5+3*x,-4.5+3*y,4.5-3*z)
-          glutSolidSphere(0.5,20,20)
+
+          glDisable(GL_LIGHTING)
+
+          glColor4f(0.1,0.1,0.1, 0.8)
+          glLineWidth(0.1)
+
+          if (z > 0):
+            glBegin(GL_LINES)
+            glVertex3f(0,0,0)
+            glVertex3f(0,0,3)
+            glEnd()
+          if (y < 3):
+            glBegin(GL_LINES)
+            glVertex3f(0,0,0)
+            glVertex3f(0,3,0)
+            glEnd()
+          if (x < 3):
+            glBegin(GL_LINES)
+            glVertex3f(0,0,0)
+            glVertex3f(3,0,0)
+            glEnd()
+
+          glEnable(GL_LIGHTING)
+
+          if (cube.at((x,y,z))):
+            color = [0.15, 1.0, 0.15, 0.95]
+          else:
+            color = [0.0, 0.15, 0.0, 0.55]
+          glMaterialfv(GL_FRONT,GL_DIFFUSE,color)
+          glutSolidSphere(0.26,20,20)
+
           glPopMatrix()
     glutSwapBuffers()
 
