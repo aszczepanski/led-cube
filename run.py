@@ -12,7 +12,8 @@ import communication
 import visualization
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--effect', required=True, metavar='EFFECT', help='execute given effect - one of the following: \'snake\' or \'smoke\'')
+parser.add_argument('--effect', required=True, metavar='EFFECT',
+  help='execute given effect - one of the following: \'demo\', \'loadbar\', \'random_filler\', \'rain\', \'snake\', \'smoke\' or \'blink\'')
 parser.add_argument('--output', nargs='+', metavar='OUT', help='add given output method - one or more of the following: \'serial\', \'matplotlib\' or \'opengl\'')
 args = parser.parse_args()
 
