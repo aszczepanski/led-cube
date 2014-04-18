@@ -7,4 +7,3 @@ class SmokeEffect(Effect):
       self.cube.layer(self.iterations % self.cube.size, self.iterations / self.cube.size)
     else:
       self.cube.randomness()
-    Effect.next(self)

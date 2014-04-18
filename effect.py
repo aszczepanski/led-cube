@@ -13,6 +13,7 @@ class Effect:
 
 from smoke import SmokeEffect
 from snake import SnakeEffect
+from basic import BasicEffects
 
 import time
 
@@ -25,11 +26,13 @@ class EffectRunner:
     elif effect_name == "smoke":
       effect = SmokeEffect(self.cube)
     elif effect_name == "rain":
-      pass
+      effect = BasicEffects(self.cube, "rain")
     elif effect_name == "random_filler":
-      pass
+      effect = BasicEffects(self.cube, "random_filler")
+    elif effect_name == "blink":
+      effect = BasicEffects(self.cube, "blink")
     elif effect_name == "loadbar":
-      pass
+      effect = BasicEffects(self.cube, "loadbar")
     else:
       raise ValueError
       
