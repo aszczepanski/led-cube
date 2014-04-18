@@ -20,6 +20,12 @@ import time
 class EffectRunner:
   def __init__(self, cube):
     self.cube = cube
+    self.effects = {
+      "loadbar" : BasicEffects(cube, "loadbar"),
+      "rain" : BasicEffects(cube, "rain"),
+      "random_filler" : BasicEffects(cube, "random_filler"),
+      "snake" : SnakeEffect(cube)
+    }
   def run_effect(self, effect_name):
     if effect_name == "snake":
       effect = SnakeEffect(self.cube)
@@ -37,3 +43,6 @@ class EffectRunner:
       raise ValueError
       
     effect.run()
+  def run_demo(self):
+    BasicEffects(self.cube, "demo").run()
+    SnakeEffect(self.cube).run()

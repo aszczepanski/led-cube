@@ -9,6 +9,7 @@ class BasicEffects:
   def run(self):
     self.cube.clear()
     self.cube.flush()
+
     if self.effect_name == "rain":
       self.sendvoxels_rand_y(150, 0.015, 0.09)
     elif self.effect_name == "random_filler":
@@ -19,8 +20,24 @@ class BasicEffects:
     elif self.effect_name == "loadbar":
       self.loadbar(0.1)
       self.loadbar(0.1)
+
+    elif self.effect_name == "demo":
+      self.cube.clear()
+      self.cube.flush()
+
+      self.loadbar(0.1)
+      self.loadbar(0.1)
+
+      self.sendvoxels_rand_y(100, 0.015, 0.09)
+
+      self.random_filler(0.02, 1)
+      self.random_filler(0.02, 0)
+
+      self.blink(2)
+      
     else:
       raise ValueError
+
 
   def __sendvoxel_y(self, (x, y, z), delay):
     for i in range(4):
@@ -66,6 +83,10 @@ class BasicEffects:
         last_z = z
 
   def random_filler(self, delay, state):
+    if state == 1:
+      self.cube.clear()
+    else:
+      self.cube.fill()
     loop = 0;
     while (loop<63):
       x = numpy.random.randint(0,4)

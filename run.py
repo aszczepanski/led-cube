@@ -29,4 +29,7 @@ if args.output:
     cube.addSubscriber(visualization.OpenGLVisualizator())
   
 effectRunner = EffectRunner(cube)
-effectRunner.run_effect(args.effect)
+if args.effect == "demo":
+  effectRunner.run_demo()
+else:
+  effectRunner.run_effect(args.effect)
