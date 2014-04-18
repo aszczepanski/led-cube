@@ -14,9 +14,17 @@ optional arguments:
                         following: 'serial', 'matplotlib' or 'opengl'
 
 ```
+Available effects:
+* demo
+* loadbar
+* random_filler
+* rain
+* snake
+* smoke
+* blink
 
 ## example
-Run 'snake' effect, use serial port and show OpenGL visualization:
+Run 'demo' effect, use serial port and show OpenGL visualization:
 ```
-python run.py --effect snake --output serial opengl
+python run.py --effect demo --output serial opengl
 ```
