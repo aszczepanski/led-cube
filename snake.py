@@ -26,6 +26,5 @@ class SnakeEffect(Effect):
       self.snake = [new_head] + self.snake[:-1]
       self.cube.on(self.snake[0])
 
-      Effect.next(self)
     else:
       self.iterations = 0
