@@ -14,6 +14,7 @@ class Effect:
 from smoke import SmokeEffect
 from snake import SnakeEffect
 from basic import BasicEffects
+from snd   import SoundEffect
 
 import time
 
@@ -24,7 +25,8 @@ class EffectRunner:
       "loadbar" : BasicEffects(cube, "loadbar"),
       "rain" : BasicEffects(cube, "rain"),
       "random_filler" : BasicEffects(cube, "random_filler"),
-      "snake" : SnakeEffect(cube)
+      "snake" : SnakeEffect(cube),
+      "sound" : SoundEffect(cube, "sound.wav")
     }
   def run_effect(self, effect_name):
     if effect_name == "snake":
@@ -39,6 +41,8 @@ class EffectRunner:
       effect = BasicEffects(self.cube, "blink")
     elif effect_name == "loadbar":
       effect = BasicEffects(self.cube, "loadbar")
+    elif effect_name == "sound":
+      effect = SoundEffect(self.cube, "sound.wav")
     else:
       raise ValueError
       
