@@ -14,7 +14,7 @@ class Effect:
 from smoke import SmokeEffect
 from snake import SnakeEffect
 from basic import BasicEffects
-from snd   import SoundEffect
+from sound import SoundEffect
 
 import time
 

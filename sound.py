@@ -23,9 +23,8 @@ class SoundEffect:
     windows_count = len(data) / window_size
     windows = [ self.transform_window(data_mono[i*window_size:(i+1)*window_size]) for i in range(0, windows_count) ]
 
-    cube_size = 4 ** 3
     thread1 = Thread(target = self.play_data, args=(data, samplerate))
-    thread2 = Thread(target = self.print_windows, args=(windows, cube_size, window_size, samplerate))
+    thread2 = Thread(target = self.print_windows, args=(windows, window_size, samplerate))
 
     thread1.start()
     thread2.start()
@@ -36,21 +35,22 @@ class SoundEffect:
   def transform_window(self, window):
     return np.max(np.absolute(window))
 
-  def print_window(self, window, cube_size):
-    ones = int(cube_size * window)
-    zeroes = cube_size - ones
-    prints = [ "1" for i in range(ones) ]
-    for i in range(zeroes):
-      prints.append("0")
-    #sys.stdout.write("\r" +  "".join(prints))
-    #sys.stdout.flush()
-    print("".join(prints))
+  def print_window(self, window):
+    ones = int(self.cube.count * window)
+    zeroes = self.cube.count - ones
+    for i in range(ones):
+      self.cube.on((i % self.cube.size, (i / self.cube.size ** 2) % self.cube.size , (i / self.cube.size) % self.cube.size))
+    for i in range(ones, zeroes + ones):
+      self.cube.off((i % self.cube.size, (i / self.cube.size ** 2) % self.cube.size , (i / self.cube.size) % self.cube.size))
+    #print("".join(prints))
+    #self.cube.randomness()
 
-  def print_windows(self, windows, cube_size, window_size, samplerate):
+  def print_windows(self, windows, window_size, samplerate):
     interval = float(window_size) / samplerate
     for window in windows:
       time.sleep(interval)
-      self.print_window(window, cube_size)
+      self.print_window(window)
+      self.cube.flush()
 
   def play_data(self, data, samplerate):
     p = pyaudio.PyAudio()

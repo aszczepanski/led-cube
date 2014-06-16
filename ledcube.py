@@ -54,7 +54,8 @@ class LEDCube(Publisher):
 
 if __name__ == "__main__":
   """Performs simple cube test"""
-  cube = LEDCube(8)
+  cube_size = 8
+  cube = LEDCube(cube_size)
 
   cube.flush()
   time.sleep(1)
@@ -63,10 +64,10 @@ if __name__ == "__main__":
   cube.flush()
   time.sleep(1)
 
-  for x in range(0,8):
+  for x in range(0,cube_size):
     cube.clear()
-    for y in range(0,8):
-      for z in range(0,8):
+    for y in range(0,cube_size):
+      for z in range(0,cube_size):
         cube.on((x,y,z))
     cube.flush()
     time.sleep(0.25)
