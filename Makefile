@@ -10,15 +10,15 @@ EEPROM = .eeprom
 SRCS = main.c helpers.c effects.c usart.c
 OBJS=$(addprefix ./obj/, $(addsuffix .o, $(SRCS)))
 
-LFUSE = 0xe4
-HFUSE = 0xd9
+LFUSE = 0xef
+HFUSE = 0xc9
 
 #  default:
 # LFUSE = 0xe1
 # HFUSE = 0x99
 
 DEVICE = atmega16
-CLOCK = 8000000
+CLOCK = 14745600
 PROGRAMMER = usbasp
 HEX = prog.hex
 TARGET = a.out

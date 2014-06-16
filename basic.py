@@ -40,10 +40,10 @@ class BasicEffects:
 
 
   def __sendvoxel_y(self, (x, y, z), delay):
-    for i in range(4):
-      if y==3:
-        ii = 3-i
-        if ii+1 <= 3:
+    for i in range(8):
+      if y==7:
+        ii = 7-i
+        if ii+1 <= 7:
           self.cube.off((x,ii+1,z))
       else:
         ii = i
@@ -60,24 +60,24 @@ class BasicEffects:
 
     last_x = last_z = -1
 
-    for x in range(4):
-      for z in range(4):
+    for x in range(8):
+      for z in range(8):
         if (numpy.random.randint(0,2) == 0):
           self.cube.on((x,0,z))
         else:
-          self.cube.on((x,3,z))
+          self.cube.on((x,7,z))
 
     self.cube.flush()
 
     for i in range(iterations):
-      x = numpy.random.randint(0,4)
-      z = numpy.random.randint(0,4)
+      x = numpy.random.randint(0,8)
+      z = numpy.random.randint(0,8)
 
       if (x != last_x and z != last_z):
         if self.cube.at((x,0,z)):
           self.__sendvoxel_y((x,0,z),delay)
         else:
-          self.__sendvoxel_y((x,3,z),delay)
+          self.__sendvoxel_y((x,7,z),delay)
         time.sleep(wait)
         last_x = x
         last_z = z
@@ -88,10 +88,10 @@ class BasicEffects:
     else:
       self.cube.fill()
     loop = 0;
-    while (loop<63):
-      x = numpy.random.randint(0,4)
-      y = numpy.random.randint(0,4)
-      z = numpy.random.randint(0,4)
+    while (loop<512):
+      x = numpy.random.randint(0,8)
+      y = numpy.random.randint(0,8)
+      z = numpy.random.randint(0,8)
       if state == 0 and self.cube.at((x,y,z)):
         self.cube.off((x,y,z))
         self.cube.flush()
@@ -105,18 +105,18 @@ class BasicEffects:
 
   def loadbar(self, delay):
     self.cube.clear();
-    for y in range(4):
-      for x in range(4):
-        for z in range(4):
+    for y in range(8):
+      for x in range(8):
+        for z in range(8):
           self.cube.on((x,y,z))
       self.cube.flush()
       time.sleep(delay)
 
     time.sleep(delay*3)
 
-    for y in range(4):
-      for x in range(4):
-        for z in range(4):
+    for y in range(8):
+      for x in range(8):
+        for z in range(8):
           self.cube.off((x,y,z))
       self.cube.flush()
       time.sleep(delay);

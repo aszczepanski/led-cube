@@ -19,7 +19,7 @@ args = parser.parse_args()
 
 print vars(args)
 
-cube = LEDCube(4)
+cube = LEDCube(8)
 
 if args.output:
   if 'serial' in args.output:

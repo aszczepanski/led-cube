@@ -2,8 +2,8 @@
 
 #include <avr/io.h>
 
-// from datasheet - baudrate 250000bps @ 8MHz
-#define BAUD_PRESCALE 1
+// from datasheet - baudrate 115.2k @ 14.7456MHz
+#define BAUD_PRESCALE 7
 
 void USART_Init(void) {
   UCSRB = (1<<RXEN)|(1<<TXEN);
