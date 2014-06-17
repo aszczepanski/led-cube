@@ -8,7 +8,7 @@ def bin(s):
 
 class UART(Subscriber):
   def __init__(self):
-    self.__serial = serial.Serial('/dev/ttyUSB0', 115200, timeout=1)
+    self.__serial = serial.Serial('/dev/tty.usbserial-A9WVV1HL', 115200, timeout=1)
 
   def update(self, cube):
     self.__serial.write(chr(int('AB', 16)))
