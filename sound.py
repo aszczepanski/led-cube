@@ -16,7 +16,7 @@ class SoundEffect:
 
     sound = audiolab.Sndfile('sound.wav')
     samplerate = sound.samplerate
-    data = sound.read_frames(samplerate * 120)
+    data = sound.read_frames(sound.nframes)
     data_mono = data[:,0]
     data_stereo = data.transpose()
 
