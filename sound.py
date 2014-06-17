@@ -37,22 +37,23 @@ class SoundEffect:
     thread2.join()
 
   def transform_window(self, window):
-    #return abs(scipy.signal.resample(np.fft.rfft(window), self.cube.size ** 2))
-    return np.max(np.absolute(window))
+    return abs(scipy.signal.resample(np.fft.rfft(window), self.cube.size))
+    #return np.max(np.absolute(np.fft.ifft(np.fft.fft(window)[300:])))
 
   def print_window(self, window):
-    self.print_window_layers(window)
+    self.print_window_spectrum(window)
 
   def print_window_spectrum(self, window):
-    maximum = 10
+    maximum = 1
     for idx, value in enumerate(window):
       cutoff = float(value) / maximum * self.cube.size
       for i in range(self.cube.size):
-        point = (idx % self.cube.size, i, (idx / self.cube.size) % self.cube.size)
-        if i <= cutoff:
-          self.cube.on(point)
-        else:
-          self.cube.off(point)
+        for l in range(self.cube.size):
+          point = (l, i, idx % self.cube.size)
+          if i <= cutoff:
+            self.cube.on(point)
+          else:
+            self.cube.off(point)
 
   def print_window_layers(self, window):
     for idx in range(self.cube.size ** 2):
